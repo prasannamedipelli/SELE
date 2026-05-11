@@ -1,0 +1,5 @@
+selenium 
+webdriver_manager
+pytest
+pytest-bdd
+pytest-xdist
