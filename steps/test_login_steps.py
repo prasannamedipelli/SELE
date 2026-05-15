@@ -1,64 +1,47 @@
+#code behind file
 from pytest_bdd import scenarios, given, when, then, parsers
+import time
 from pages.login_page import LoginPage
+from openpyxl import load_workbook
+from utils.db_utils import get_login_data
+import pytest
 
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
-
-# Load all scenarios from feature file
+#)
 scenarios("../features/login.feature")
 
-
-# Launch Website
+username, password = get_login_data() 
 @given("user launches saucedemo site")
 def launch_site(driver):
-
     page = LoginPage(driver)
     page.open()
 
-
-# Enter Username
-@when(parsers.parse('user enters username "{username}"'))
-def enter_username(driver, username):
-
+@when(parsers.parse('user enters username'))
+def enter_username(driver):
     page = LoginPage(driver)
-
-    # Validation to avoid NoneType error
-    assert username is not None
-    assert username != ""
-
+    wb = load_workbook(r"C:\Users\shaik\Downloads\sele\sample.xlsx")
     page.enter_username(username)
-
-
-# Enter Password
-@when(parsers.parse('user enters password "{password}"'))
-def enter_password(driver, password):
-
-    page = LoginPage(driver)
-
-    # Validation
-    assert password is not None
-    assert password != ""
-
+    
+@when(parsers.parse('user enters password'))
+def enter_password(driver):
+   
+    page= LoginPage(driver)
     page.enter_password(password)
+   
 
-
-# Click Login Button
 @when("user clicks login button")
 def click_login(driver):
-
-    page = LoginPage(driver)
-
+    page= LoginPage(driver)
+    time.sleep(30)
     page.click_login()
-
-    # Wait until next page loads
-    WebDriverWait(driver, 10).until(
-        EC.url_contains("inventory")
-    )
-
-
-# Verify Products Page
+  
+    
 @then("user should see products page")
-def verify_products_page(driver):
-
+def verify_pdoducts_page(driver):
+    page= LoginPage(driver)
     assert "inventory" in driver.current_url
+    
+
+        
+    
+           

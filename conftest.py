@@ -12,12 +12,15 @@ def driver():
     
     option = webdriver.ChromeOptions()
     option.add_argument("--window-size=1920,1080")
-    driver = webdriver.Chrome(options=option)
-    # driver= webdriver.Chrome()  # webdriver.Remote(
+    driver= webdriver.Chrome()  # webdriver.Remote(
     #     command_executor="http://localhost:4444/wd/hub" , options=option
         
     # )
+    driver.implicitly_wait(10)  
+    #above is global wait applies to all element
+    driver.maximize_window()
     
     
     yield driver
     driver.quit()
+    

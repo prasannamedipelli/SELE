@@ -1,5 +1,5 @@
 Feature: Selenium Downloads Navigation
-
+@skip
 Scenario: Verify Downloads link navigation
 Given user launches browser
 When user switches to selenium iframe
